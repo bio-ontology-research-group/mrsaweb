@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "bootstrap": "^4.4.1",
+    "jquery": "3",
+    "jquery-ui-dist": "^1.12.1",
+    "popper.js": "^1.16.0"
+  },
+  "name": "mrsaweb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/bio-ontology-research-group/mrsaweb.git",
+  "author": "Ali R. Syed <ali.syed@kaust.edu.sa>",
+  "license": "MIT"
+}
