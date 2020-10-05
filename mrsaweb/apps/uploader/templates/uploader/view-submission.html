@@ -1,0 +1,245 @@
+{% extends 'uploader/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+    <div class="container mb-3">
+        <h4 class="text-center my-5">Submission </h4>
+        <div class="row pt-3 mb-4">
+            <div class="col-3">ID</div>
+            <div class="col-3">{{submission.sub.value}}</div>
+        </div>
+        <div class="row border-bottom">
+            <strong>Bacteria</strong>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3">Bacteria Species</div>
+            {% if submission.bacteria_species.display %}
+                <div class="col-6">{{submission.bacteria_species.display}}</div>
+            {% else %}
+                <div class="col-6">{{submission.bacteria_species.value}}</div>
+            {% endif %}
+        </div>
+        {% if 'bacteria_strain' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Bacteria Strain</div>
+            <div class="col-6">{{submission.bacteria_strain.value}}</div>
+        </div>
+        {% endif %}
+        <div class="row border-bottom">
+            <strong>Host</strong>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3">Host Species</div>
+            {% if submission.host_species.display %}
+                <div class="col-3">{{submission.host_species.display}}</div>
+            {% else %}
+                <div class="col-3">{{submission.host_species.value}}</div>
+            {% endif %}
+        </div>
+        {% if 'host_id' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Host ID</div>
+            <div class="col-3">{{submission.host_id.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'host_sex' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Host Sex</div>
+            {% if submission.host_sex.display %}
+                <div class="col-6">{{submission.host_sex.display}}</div>
+            {% else %}
+                <div class="col-6">{{submission.host_sex.value}}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if 'host_age' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Host Age</div>
+            <div class="col-3">{{submission.host_age.value}} 
+            {% if submission.host_age_unit.display %}
+                {{submission.host_age_unit.display}}
+            {% else %}
+                {{submission.host_age_unit.value}}
+            {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% if 'host_health_status' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Host Health Status</div>
+            <div class="col-3">
+            {% if submission.host_health_status.display %}
+                {{submission.host_health_status.display}}
+            {% else %}
+                {{submission.host_health_status.value}}
+            {% endif %}</div>
+        </div>
+        {% endif %}
+        {% if 'host_treatment' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Host Treatment</div>
+            <div class="col-3">{{submission.host_treatment.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'host_vaccinations' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Host Vaccinations</div>
+            <div class="col-3">
+                <ul class="list-unstyled">{% for vaccine in  submission.host_vaccinations.value %}
+                    <li>{{vaccine}} </li>
+                {% endfor %}</ul></div>
+        </div>
+        {% endif %}
+        {% if 'ethnicity' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Host Ethnicity</div>
+            <div class="col-3">
+            {% if submission.ethnicity.display %}
+                {{submission.ethnicity.display}}
+            {% else %}
+                {{submission.ethnicity.value}}
+            {% endif %}</div>
+        </div>
+        {% endif %}
+        <div class="row mt-2 border-bottom">
+            <strong>Sample</strong>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3">Sample ID</div>
+            <div class="col-3">{{submission.sample_id.value}}</div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3">Collection Date</div>
+            <div class="col-3">{{submission.collection_date.value}}</div>
+        </div>
+        {% if 'specimen_sources' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Specimen Source</div>
+            <div class="col-3">
+                <ul class="list-unstyled">{% for source in  submission.specimen_sources.display %}
+                    <li>{{source}} </li>
+                {% endfor %}</ul></div>
+        </div>
+        {% endif %}
+        {% if 'sample_storage_conditions' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Sample Storage Conditions</div>
+            <div class="col-3">{{submission.sample_storage_conditions.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'source_database_accessions' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Source Database Accession</div>
+            <div class="col-3">
+                <ul class="list-unstyled">{% for acc in  submission.source_database_accessions.value %}
+                    <li>{{acc}} </li>
+                {% endfor %}</ul></div>
+        </div>
+        {% endif %}
+        {% if 'collector_name' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Collector Name</div>
+            <div class="col-3">{{submission.collector_name.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'collecting_institution' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Collecting Institution</div>
+            <div class="col-3">{{submission.collecting_institution.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'collection_location' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Collection Location</div>
+            <div class="col-3">{{submission.collection_location.value}}</div>
+        </div>
+        {% endif %}
+        <div class="row  mt-2 border-bottom">
+            <strong>Technology</strong>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3">Sequencing Technologies</div>
+            <div class="col-6">
+                <ul class="list-unstyled">{% for tech in  submission.seq_technologies.display %}
+                    <li>{{tech}} </li>
+                {% endfor %}</ul></div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3">Sequence Assembly Method</div>
+            <div class="col-3">{{submission.sequence_assembly_method.value}}</div>
+        </div>
+        {% if 'sequencing_coverages' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Sequencing Coverage</div>
+            <div class="col-3">
+                <ul class="list-unstyled">{% for cov in  submission.sequencing_coverages.value %}
+                    <li>{{cov}} </li>
+                {% endfor %}</ul></div>
+        </div>
+        {% endif %}
+        <div class="row  mt-2 border-bottom">
+            <strong>Submitter</strong>
+        </div>
+        <div class="row pt-3">
+            <div class="col-3">Authors</div>
+            <div class="col-3">
+                <ul class="list-unstyled">{% for author in  submission.authors.value %}
+                    <li>{{author}} </li>
+                {% endfor %}</ul></div>
+        </div>
+
+        {% if 'submitter_names' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Submitter Names</div>
+            <div class="col-3"><ul class="list-unstyled">{% for name in  submission.submitter_names.value %}
+                    <li>{{name}} </li>
+                {% endfor %}</ul></div>
+        </div>
+        {% endif %}
+        {% if 'submitter_address' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Submitter Address</div>
+            <div class="col-6">{{submission.submitter_address.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'originating_lab' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Originating Lab</div>
+            <div class="col-6">{{submission.originating_lab.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'lab_address' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Lab Address</div>
+            <div class="col-6">{{submission.lab_address.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'provider_sample_id' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Provider Sample ID</div>
+            <div class="col-6">{{submission.provider_sample_id.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'submitter_sample_id' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Submitter Sample ID</div>
+            <div class="col-6">{{submission.submitter_sample_id.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'publication' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Publication</div>
+            <div class="col-6">{{submission.publication.value}}</div>
+        </div>
+        {% endif %}
+        {% if 'submitter_orcids' in submission %}
+        <div class="row pt-3">
+            <div class="col-3">Submitter orcid</div>
+            <div class="col-6"><ul class="list-unstyled">{% for orcid in  submission.submitter_orcids.value %}
+                    <li>{{orcid}} </li>
+                {% endfor %}</ul></div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock content %}

@@ -5,8 +5,8 @@ PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
 PREFIX evs: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> \n \
 PREFIX edam: <http://edamontology.org/> \n \
  \n \
-select distinct ?sub ?host_species ?sample_id ?collection_date ?submitter ?seq_technology ?virus_species \n \
-from <https://workbench.cborg.cbrc.kaust.edu.sa>  \n \
+select distinct ?sub ?host_species ?sample_id ?collection_date ?submitter ?seq_technology ?bacteria_species \n \
+from <https://mrsa.cbrc.kaust.edu.sa>  \n \
  \n \
 where { \n \
  \n \
@@ -14,14 +14,14 @@ where { \n \
        MainSchema:sample ?sample ; \n \
        MainSchema:submitter ?submitter ; \n \
        MainSchema:technology ?technology ; \n \
-       MainSchema:virus ?virus . \n \
+       MainSchema:bacteria ?bacteria . \n \
  \n \
   ?host efo:EFO_0000532 ?host_species . \n \
  \n \
   ?sample sio:SIO_000115 ?sample_id; \n \
 	  evs:C25164 ?collection_date . \n \
  \n \
-  ?virus edam:data_1875 ?virus_species . \n \
+  ?bacteria edam:data_1875 ?bacteria_species . \n \
   ?technology obo:OBI_0600047 ?seq_technology . \n \
  \n \
 } ORDER BY 1 LIMIT 10'
@@ -33,8 +33,8 @@ PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
 PREFIX evs: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> \n \
 PREFIX edam: <http://edamontology.org/> \n \
  \n \
-select distinct ?sub ?host_species ?sample_id ?collection_date ?submitter ?seq_technology (obo:NCBITaxon_2697049 as ?virus_species) \n \
-from <https://workbench.cborg.cbrc.kaust.edu.sa>  \n \
+select distinct ?sub ?host_species ?sample_id ?collection_date ?submitter ?seq_technology (obo:NCBITaxon_2697049 as ?bacteria_species) \n \
+from <https://mrsa.cbrc.kaust.edu.sa>  \n \
  \n \
 where { \n \
  \n \
@@ -42,8 +42,8 @@ where { \n \
        MainSchema:sample ?sample ; \n \
        MainSchema:submitter ?submitter ; \n \
        MainSchema:technology ?technology ; \n \
-        MainSchema:virus ?virus .  \n \
-  ?virus edam:data_1875 obo:NCBITaxon_2697049 .  \n \
+        MainSchema:bacteria ?bacteria .  \n \
+  ?bacteria edam:data_1875 obo:NCBITaxon_2697049 .  \n \
  \n \
   ?host efo:EFO_0000532 ?host_species . \n \
  \n \
@@ -66,15 +66,15 @@ select distinct (<http://arvados.org/keep:00a6af865453564f6a59b3d2c81cc7c1+123/s
         ?sample_id (group_concat(distinct ?specimen_source;separator=",") as ?specimen_sources) ?sample_storage_conditions (group_concat(distinct ?source_database_accession;separator=",") as ?source_database_accessions)  \n \
         ?collector_name ?collection_date ?collecting_institution ?collection_location \n \
        (group_concat(distinct ?seq_technology;separator=",") as ?seq_technologies) ?sequence_assembly_method (group_concat(distinct ?sequencing_coverage;separator=",") as ?sequencing_coverages) \n \
-       ?virus_species ?virus_strain \n \
-from <https://workbench.cborg.cbrc.kaust.edu.sa>  \n \
+       ?bacteria_species ?bacteria_strain \n \
+from <https://mrsa.cbrc.kaust.edu.sa>  \n \
  \n \
 where { \n \
   <http://arvados.org/keep:00a6af865453564f6a59b3d2c81cc7c1+123/sequence.fasta> MainSchema:host  ?host ; \n \
        MainSchema:sample ?sample ; \n \
        MainSchema:submitter ?submitter ; \n \
        MainSchema:technology ?technology ; \n \
-       MainSchema:virus ?virus . \n \
+       MainSchema:bacteria ?bacteria . \n \
  \n \
   ?host efo:EFO_0000532 ?host_species . \n \
   OPTIONAL { ?host sio:SIO_000115 ?host_id .} \n \
@@ -95,8 +95,8 @@ where { \n \
   OPTIONAL { ?sample obo:NCIT_C41206 ?collecting_institution .} \n \
   OPTIONAL { ?sample obo:GAZ_00000448 ?collection_location .} \n \
  \n \
-  ?virus edam:data_1875 ?virus_species . \n \
-  OPTIONAL { ?virus sio:SIO_010055 ?virus_strain .} \n \
+  ?bacteria edam:data_1875 ?bacteria_species . \n \
+  OPTIONAL { ?bacteria sio:SIO_010055 ?bacteria_strain .} \n \
  \n \
   ?technology obo:OBI_0600047 ?seq_technology . \n \
   OPTIONAL { ?technology efo:EFO_0002699 ?sequence_assembly_method .} \n \

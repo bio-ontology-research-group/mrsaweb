@@ -18,12 +18,16 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from mrsaweb.views import HomePageView
 
 urlpatterns = [
+    path('', HomePageView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('upload/', include('uploader.urls')),
     path('isparql/', include('sparql.urls')),
-    # path('api/', include('mrsaweb.api_urls')),
+    path('api/', include('mrsaweb.api_urls')),
+    path('manage/', include('mrsaweb.manage_urls')),
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('healthcheck', TemplateView.as_view(template_name='health.html')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

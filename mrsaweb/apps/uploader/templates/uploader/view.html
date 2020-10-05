@@ -1,0 +1,26 @@
+{% extends 'uploader/base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-6">
+    {% if object.status == "submitted" %}
+    <p>
+      Your sequence have been successfully submitted.
+      Please wait around 1 minute and refresh this page.
+    </p>
+    {% elif object.status == "validated" %}
+    {{ object.status }}
+    {% elif object.status == "error" %}
+    <p class="text-danger">
+      Something went wrong!
+    </p>
+    <p>
+      {{ object.error_message }}
+    </p>
+    {% elif object.status == "uploaded" %}
+    <p>Your sequence have been successfully uploaded.</p>
+    <p>Please proceed to the <a href="{% url "uploader-list" %}">page</a> with all sequences.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

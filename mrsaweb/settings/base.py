@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'rest_framework',
     'snowpenguin.django.recaptcha2',
+    'uploader',
     'sparql'
 ]
 
@@ -216,6 +217,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'list-group-item-danger',
 }
 
+ABEROWL_API_URL='http://aber-owl.net/api'
 
 VIRTUOSO_HOST=config['virtuoso']['host']
 VIRTUOSO_SPARQL_PORT=config['virtuoso']['sparql.port']

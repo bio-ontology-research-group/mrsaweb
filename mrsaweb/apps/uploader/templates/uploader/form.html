@@ -1,0 +1,186 @@
+{% extends 'uploader/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<form action="." method="post"
+      enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-6">
+        <h3>BORG MRSA Sequence Database</h3>
+	<h4>Database for collecting MRSA sequence data from Saudi
+	  Arabia.</h4>
+	<p>
+	  Upload your MRSA sequence (FASTA or FASTQ formats)
+	  with metadata (in JSON-LD) to the BORG MRSA
+	  Sequence Database.  Each upload will be processed using a
+	  set
+	  of <a href="https://github.com/bio-ontology-research-group/borg-workflows">standardized
+	  workflows</a> which generates a pangenome with associated
+	  metadata available for
+	  <a href="https://workbench.cborg.cbrc.kaust.edu.sa/collections/cborg-4zz18-f9ixh7pj9hjjdh8">download</a>. The
+	  pangenome and metadata can be loaded in a graph database and
+	  we make them available to
+	  be <a href="{% url "sparql-isparql" %}">queried</a>.
+
+	  We provide a
+	  free <a href="https://github.com/bio-ontology-research-group/cborguploader">command
+	  line tool</a> to support bulk uploads to the BORG
+	  MRSA Sequence Database and other BORG
+	  projects. <a href="mailto:borg.databases@kaust.edu.sa">Contact
+	  us</a> to obtain a token for direct uploads.
+	</p>
+    </div>
+    <div class="col-6">
+    {% for field in form.file_fields %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  {% if field.field.required %}
+	  <span class="required">*</span>
+	  {% endif %}
+	</label>
+	{{ field | add_class:"form-control" }}
+	<small class="form-text text-muted">
+	  {{ field.help_text }}
+	</small>
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endfor %}
+      <button class="btn btn-primary float-right" type="submit">Submit</button>
+      <p>
+	<ul>
+	  <li><a href="{% static "sequence.fasta" %}">Example Sequence</a></li>
+	  <li><a href="{% static "metadata.yaml" %}">Example
+	      Metadata</a></li>
+	</ul>
+      </p>
+    </div>
+  </div>
+  <div class="row" id="metadata_fields">
+    <div class="col-3">
+      {% with form.metadata_id as field %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  <a href="javascript:alert('{{ field.help_text }}')">?</a>
+	</label>
+        {{ field | add_class:"form-control" }}
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endwith %}
+    </div>
+    <div class="col-9"></div>
+    <div class="col-3">
+      <h3>Host</h3>
+      {% for field in form.host_fields %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  <a href="javascript:alert('{{ field.help_text }}')">?</a>
+	</label>
+        {{ field | add_class:"form-control" }}
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-3">
+      <h3>Sample</h3>
+      
+      {% for field in form.sample_fields %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  {% if field.field.required %}
+	  <span class="required">*</span>
+	  {% endif %}
+	  <a href="javascript:alert('{{ field.help_text }}')">?</a>
+	</label>
+        {{ field | add_class:"form-control" }}
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-3">
+      <h3>Technology</h3>
+      
+      {% for field in form.technology_fields %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  {% if field.field.required %}
+	  <span class="required">*</span>
+	  {% endif %}
+	  <a href="javascript:alert('{{ field.help_text }}')">?</a>
+	</label>
+        {{ field | add_class:"form-control" }}
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endfor %}
+      
+      <h3>Bactria</h3>
+      {% for field in form.bacteria_fields %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  {% if field.field.required %}
+	  <span class="required">*</span>
+	  {% endif %}
+	  <a href="javascript:alert('{{ field.help_text }}')">?</a>
+	</label>
+        {{ field | add_class:"form-control" }}
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-3">
+      <h3>Submitter</h3>
+      
+      {% for field in form.submitter_fields %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  {% if field.field.required %}
+	  <span class="required">*</span>
+	  {% endif %}
+	  <a href="javascript:alert('{{ field.help_text }}')">?</a>
+	</label>
+        {{ field | add_class:"form-control" }}
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endfor %}
+    </div>
+	<div class="col-3">
+      <h3>Phenotypes</h3>
+      
+      {% for field in form.phenotypes_fields %}
+      <div class="form-group">
+	<label for="{{ field.auto_id }}">{{ field.label }}
+	  {% if field.field.required %}
+	  <span class="required">*</span>
+	  {% endif %}
+	  <a href="javascript:alert('{{ field.help_text }}')">?</a>
+	</label>
+        {{ field | add_class:"form-control" }}
+	<small class="text-danger">
+	  {{ field.errors.0 }}
+	</small>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static "js/uploader.js" %}">
+</script>
+{% endblock %}

@@ -14,7 +14,7 @@ $graph:
   fields:
     susceptibility: susceptibilitySchema[]?
 
-- name: susceptibilytSchema
+- name: susceptibilitySchema
   type: record
   fields:
     antimicrobial_agent:
@@ -169,7 +169,7 @@ $graph:
           _type: "@id"
           noLinkCheck: true
     bacteria_strain:
-      doc: Name of the virus strain
+      doc: Name of the bacteria strain
       type: string?
       jsonldPredicate:
           _id: http://semanticscience.org/resource/SIO_010055
