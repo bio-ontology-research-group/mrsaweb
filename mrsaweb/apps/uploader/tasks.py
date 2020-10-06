@@ -1,12 +1,11 @@
-from celery import Celery
+from celery import task
 from uploader.models import Upload
 import subprocess
 import os
 import json
 
-app = Celery('uploader', broker='amqp://guest@localhost//')
 
-@app.task
+@task
 def upload_to_arvados(upload_pk, sequence_file, metadata_file):
     cmd = ['bh20-seq-uploader', sequence_file, metadata_file]
     print(" ".join(cmd))

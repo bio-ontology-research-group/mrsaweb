@@ -217,6 +217,18 @@ MESSAGE_TAGS = {
     messages.ERROR: 'list-group-item-danger',
 }
 
+
+# CELERY SETTINGS
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_WORKER_CONCURRENCY = 24
+CELERY_BROKER_POOL_LIMIT = 100
+CELERY_BROKER_CONNECTION_TIMEOUT = 10
+
 ABEROWL_API_URL='http://aber-owl.net/api'
 
 VIRTUOSO_HOST=config['virtuoso']['host']

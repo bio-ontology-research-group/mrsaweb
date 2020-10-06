@@ -1,3 +1,4 @@
+from asgiref.sync import sync_to_async
 from django import forms
 from django.contrib.postgres.forms import SimpleArrayField
 from .utils import FORM_ITEMS
@@ -11,6 +12,7 @@ import json
 import datetime
 import os
 
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 def add_clean_field(cls, field_name):
     def required_field(self):
@@ -129,7 +131,8 @@ class UploadForm(forms.ModelForm):
         metadata_file = self.cleaned_data['metadata_file']
         if metadata_file:
             if not qc_metadata(metadata_file.temporary_file_path()):
-                raise ValidationError("Invalid metadata format")    
+                raise ValidationError("Invalid metadata format")   
+            
         return metadata_file
 
     def clean_sequence_file(self):
@@ -142,7 +145,7 @@ class UploadForm(forms.ModelForm):
         return sequence_file
 
     def clean(self):
-        if not self.cleaned_data['metadata_file']:
+        if 'metadata_file' not in self.cleaned_data:
             metadata = {}
             for key, val in self.cleaned_data.items():
                 if not key.startswith('metadata') or not val:
@@ -186,8 +189,9 @@ class UploadForm(forms.ModelForm):
             metadata_file = self.save_file(metadata_file)
         else:
             metadata_file = self.cleaned_data['fields_metadata_file']
+        
         upload_to_arvados.delay(
-            self.instance.id,
+            self.instance.id, 
             sequence_file,
             metadata_file)
         return self.instance
