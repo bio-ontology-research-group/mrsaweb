@@ -44,3 +44,8 @@ submitter:
     publication: PMID00001113
     submitter_orcid: [https://orcid.org/0000-0000-0000-0000,https://orcid.org/0000-0000-0000-0001]
     additional_submitter_information: Optional free text field for addtional information
+phenotypes:
+    susceptibility: 
+        - antimicrobial_agent: http://purl.obolibrary.org/obo/CHEBI_18208
+          interpretation: http://purl.obolibrary.org/obo/PATO_0001178
+    

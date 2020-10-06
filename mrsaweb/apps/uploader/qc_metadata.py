@@ -5,6 +5,7 @@ import logging
 import pkg_resources
 import logging
 import traceback
+import uuid
 from rdflib import Graph, Namespace
 from pyshex.evaluate import evaluate
 
@@ -24,6 +25,7 @@ def qc_metadata(metadatafile):
 
     try:
         doc, metadata = schema_salad.schema.load_and_validate(document_loader, avsc_names, metadatafile, True)
+        doc["id"] = uuid.uuid4().urn
         g = schema_salad.jsonld_context.makerdf("workflow", doc, document_loader.ctx)
         rslt, reason = evaluate(g, shex, doc["id"], "https://raw.githubusercontent.com/bio-ontology-research-group/mrsaweb/master/mrsaweb/apps/uploader/shex.rdf#submissionShape")
 

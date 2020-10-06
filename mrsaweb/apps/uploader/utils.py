@@ -202,8 +202,8 @@ ONT_TO_URI_PATTERN_MAP = {
 
 
 PREFIX_MAP = {
-    'MainSchema': 'http://biohackathon.org/bh20-seq-schema#MainSchema/',
-    'hostSchema': 'http://biohackathon.org/bh20-seq-schema#hostSchema/',
+    'MainSchema': 'http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/',
+    'hostSchema': 'http://cbrc.kaust.edu.sa/mrsa-schema#hostSchema/',
     'xsd': 'http://www.w3.org/2001/XMLSchema#',
     'obo': 'http://purl.obolibrary.org/obo/',
     'sio': 'http://semanticscience.org/resource/',

@@ -1,4 +1,4 @@
-LIST_SUBMISSION_EXAMPLE = 'PREFIX MainSchema: <http://biohackathon.org/bh20-seq-schema#MainSchema/> \n \
+LIST_SUBMISSION_EXAMPLE = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
 PREFIX sio: <http://semanticscience.org/resource/> \n \
 PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
 PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
@@ -26,7 +26,7 @@ where { \n \
  \n \
 } ORDER BY 1 LIMIT 10'
 
-LIST_SARS_COV_SUBMISSION_EXAMPLE = 'PREFIX MainSchema: <http://biohackathon.org/bh20-seq-schema#MainSchema/> \n \
+LIST_SARS_COV_SUBMISSION_EXAMPLE = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
 PREFIX sio: <http://semanticscience.org/resource/> \n \
 PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
 PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
@@ -54,7 +54,7 @@ where { \n \
 } ORDER BY 1 LIMIT 10'
 
 
-GET_SUBMISSION_BY_URI_EXAMPLE = 'PREFIX MainSchema: <http://biohackathon.org/bh20-seq-schema#MainSchema/> \n \
+GET_SUBMISSION_BY_URI_EXAMPLE = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
 PREFIX sio: <http://semanticscience.org/resource/> \n \
 PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
 PREFIX obo: <http://purl.obolibrary.org/obo/> \n \

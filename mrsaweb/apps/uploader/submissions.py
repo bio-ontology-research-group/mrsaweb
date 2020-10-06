@@ -10,7 +10,7 @@ class Submissions:
     MIME_TYPE_JSON = "application/json"
 
     def find(self):
-        query = 'PREFIX MainSchema: <http://biohackathon.org/bh20-seq-schema#MainSchema/> \n \
+        query = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
         PREFIX sio: <http://semanticscience.org/resource/> \n \
         PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
         PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
@@ -47,7 +47,7 @@ class Submissions:
         return submissions['results']['bindings']
 
     def get_by_iri(self, iri):
-        query = 'PREFIX MainSchema: <http://biohackathon.org/bh20-seq-schema#MainSchema/> \n \
+        query = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
         PREFIX sio: <http://semanticscience.org/resource/> \n \
         PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
         PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
@@ -116,7 +116,7 @@ class Submissions:
             return None
 
     def get_submitter(self, submission_iri):
-        query='PREFIX MainSchema: <http://biohackathon.org/bh20-seq-schema#MainSchema/> \n \
+        query='PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
         PREFIX sio: <http://semanticscience.org/resource/> \n \
         PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
         PREFIX obo: <http://purl.obolibrary.org/obo/> \n \

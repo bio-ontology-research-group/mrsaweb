@@ -1,4 +1,4 @@
-PREFIX : <https://raw.githubusercontent.com/bio-ontology-research-group/mrsa-sequences/master/uploader/shex.rdf#>
+PREFIX : <https://raw.githubusercontent.com/bio-ontology-research-group/mrsaweb/master/mrsaweb/apps/uploader/shex.rdf#>
 PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/>
 PREFIX phenoSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#phenoSchema/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -10,7 +10,7 @@ PREFIX edam: <http://edamontology.org/>
 PREFIX wikidata: <http://www.wikidata.org/entity/>
 
 :submissionShape {
-  MainSchema:host   @:hostShape ;
+  MainSchema:host @:hostShape ;
   MainSchema:sample @:sampleShape ;
   MainSchema:submitter @:submitterShape ;
   MainSchema:technology @:technologyShape ;
@@ -28,7 +28,7 @@ PREFIX wikidata: <http://www.wikidata.org/entity/>
     efo:EFO_0000727 xsd:string ?;
     obo:VO_0000002 xsd:string {0,10};
     sio:SIO_001167 xsd:string ?;
-    sio:SIO_001014 [ obo:HANCESTRO_~ ] ? ; #ethnicity
+    sio:SIO_001014 [ obo:HANCESTRO_~ ] ?; #ethnicity
 }
 
 :sampleShape  {
@@ -70,10 +70,10 @@ PREFIX wikidata: <http://www.wikidata.org/entity/>
 
 :susceptibilityShape {
     obo:CHEBI_33281 [ obo:CHEBI_~ ] ;
-    obo:OBI_0001514 xsd: string?;
-    obo:PATO_0001995 [ obo:PATO_0001178, obo:PATO_0000516 ]?;
+    obo:OBI_0001514 xsd:string ?;
+    obo:PATO_0001995 [ obo:PATO_0001178 obo:PATO_0000516 ] ?;
 }
 
 :phenotypesShape {
-    phenoSchema:susceptibility @:susceptibilityShape; 
+    phenoSchema:susceptibility @:susceptibilityShape *; 
 }

@@ -1,0 +1,30 @@
+id: placeholder
+
+host:
+    host_species: http://purl.obolibrary.org/obo/NCBITaxon_9606
+
+sample:
+    sample_id: XX
+    collection_date: "2020-01-01"
+    collection_location: http://www.wikidata.org/entity/Q148
+
+bacteria:
+    bacteria_species: http://purl.obolibrary.org/obo/NCBITaxon_1280
+
+technology:
+    sample_sequencing_technology: [http://www.ebi.ac.uk/efo/EFO_0008632]
+
+submitter:
+    authors: [John Doe]
+
+phenotypes:
+    susceptibility:
+        - antimicrobial_agent: http://purl.obolibrary.org/obo/CHEBI_18208
+          mic: ">= 0.5"
+          interpretation: http://purl.obolibrary.org/obo/PATO_0001178
+        - antimicrobial_agent: http://purl.obolibrary.org/obo/CHEBI_7809
+          mic: ">= 4.0"
+          interpretation: http://purl.obolibrary.org/obo/PATO_0001178
+        - antimicrobial_agent: http://purl.obolibrary.org/obo/CHEBI_17833
+          mic: "<= 0.5"
+          interpretation: http://purl.obolibrary.org/obo/PATO_0000516

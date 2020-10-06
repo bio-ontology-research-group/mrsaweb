@@ -8,13 +8,13 @@
 <div class="card mb-4 wow fadeIn">
     <div class="card-body justify-content-between">
         <h4>SPARQL Query Editor</h4>
-        {% comment %} <div class="row"> 
+        <div class="row"> 
             <ul>
                 <li>List of submissions <button type="button" class="btn btn-link p-0 mb-1" id="listSubmissionExample">example</button>. </li>
-                <li>List submissions for SARS-CoV2 virus <button type="button" class="btn btn-link p-0 mb-1" id="listSarsCovSubmissions">example</button>. </li>
+                <li>List submissions for MRSA bacteria <button type="button" class="btn btn-link p-0 mb-1" id="listSarsCovSubmissions">example</button>. </li>
                 <li>Get submission details by submission URI <button type="button" class="btn btn-link p-0 mb-1" id="getSubmissionByUriExample">example</button>. </li>
             </ul>
-        </div> {% endcomment %}
+        </div>
         <form action="{% url 'sparql-endpoint' %}" method="get" target="_blank">
 
             {% regroup form by field.input as field_groups %}
