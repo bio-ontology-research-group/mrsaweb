@@ -28,9 +28,12 @@ def add_clean_field(cls, field_name):
     setattr(cls, required_field.__name__, required_field)
 
 class UploadForm(forms.ModelForm):
-    sequence_file = forms.FileField(
+    sequence_read_1 = forms.FileField(
         required=True,
-        help_text='Sequence file in FASTA/FASTQ format. Max file size is 512Mb.')
+        help_text='Gzipped FASTQ File (*.fastq.gz) read 1. Max file size is 512Mb.')
+    sequence_read_2 = forms.FileField(
+        required=True,
+        help_text='Gzipped FASTQ File (*.fastq.gz) read 2. Max file size is 512Mb.')
     metadata_file = forms.FileField(
         required=False,
         help_text='Metadata file in JSON/YAML format. Metadata fields are not required if this file is provided.')
@@ -95,7 +98,7 @@ class UploadForm(forms.ModelForm):
         return self['metadata.id']
     
     def file_fields(self):
-        return [self['sequence_file'], self['metadata_file']]
+        return [self['sequence_read_1'], self['sequence_read_2'], self['metadata_file']]
 
     def host_fields(self):
         for name in self.fields:
@@ -135,14 +138,25 @@ class UploadForm(forms.ModelForm):
             
         return metadata_file
 
-    def clean_sequence_file(self):
-        sequence_file = self.cleaned_data['sequence_file']
+    def clean_sequence_read_1(self):
+        sequence_read_1 = self.cleaned_data['sequence_read_1']
         try:
-            sf = open(sequence_file.temporary_file_path(), 'r')
-            qc_fasta(sf)
+            qc_fasta(sequence_read_1.temporary_file_path())
         except ValueError:
             raise ValidationError("Invalid file format")
-        return sequence_file
+        except OSError as e:
+            raise ValidationError(e)
+        return sequence_read_1
+
+    def clean_sequence_read_2(self):
+        sequence_read_2 = self.cleaned_data['sequence_read_2']
+        try:
+            qc_fasta(sequence_read_2.temporary_file_path())
+        except ValueError:
+            raise ValidationError("Invalid file format")
+        except OSError as e:
+            raise ValidationError(e)
+        return sequence_read_2
 
     def clean(self):
         if 'metadata_file' not in self.cleaned_data:
@@ -183,7 +197,8 @@ class UploadForm(forms.ModelForm):
         self.instance.user = self.request.user
         if not self.instance.id:
             self.instance.save()
-        sequence_file = self.save_file(self.cleaned_data['sequence_file'])
+        sequence_read_1 = self.save_file(self.cleaned_data['sequence_read_1'])
+        sequence_read_2 = self.save_file(self.cleaned_data['sequence_read_2'])
         metadata_file = self.cleaned_data['metadata_file']
         if metadata_file:
             metadata_file = self.save_file(metadata_file)
@@ -192,6 +207,7 @@ class UploadForm(forms.ModelForm):
         
         upload_to_arvados.delay(
             self.instance.id, 
-            sequence_file,
+            sequence_read_1,
+            sequence_read_2,
             metadata_file)
         return self.instance

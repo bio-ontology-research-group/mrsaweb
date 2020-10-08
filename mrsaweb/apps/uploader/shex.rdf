@@ -75,5 +75,5 @@ PREFIX wikidata: <http://www.wikidata.org/entity/>
 }
 
 :phenotypesShape {
-    phenoSchema:susceptibility @:susceptibilityShape *; 
+    phenoSchema:susceptibility @:susceptibilityShape +; 
 }

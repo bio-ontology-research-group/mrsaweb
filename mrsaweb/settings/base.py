@@ -236,3 +236,9 @@ VIRTUOSO_SPARQL_PORT=config['virtuoso']['sparql.port']
 VIRTUOSO_USER=config['virtuoso']['user']
 VIRTUOSO_PWD=config['virtuoso']['pwd']
 RDF_GRAPH_URI=config['virtuoso']['graph']
+
+ARVADOS_API_HOST=config['arvados']['api.host']
+ARVADOS_API_TOKEN=config['arvados']['api.token']
+UPLOAD_PROJECT=config['arvados']['api.upload.project']
+ARVADOS_COL_BASE_URI='https://workbench.cborg.cbrc.kaust.edu.sa/collections/'
+
