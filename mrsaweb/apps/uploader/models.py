@@ -43,11 +43,19 @@ class Upload(models.Model):
         return self.collection['properties']['sequence_label']
 
     @property
-    def sequence_link(self):
+    def sequence_read_1_link(self):
         if not self.collection:
             return None
         portable_data_hash = self.collection['portable_data_hash']
-        return COLLECTIONS_URL + f'/c={portable_data_hash}/_/sequence.fasta'
+        return COLLECTIONS_URL + f'/c={portable_data_hash}/_/reads1.fastq.gz'
+
+    
+    @property
+    def sequence_read_2_link(self):
+        if not self.collection:
+            return None
+        portable_data_hash = self.collection['portable_data_hash']
+        return COLLECTIONS_URL + f'/c={portable_data_hash}/_/reads2.fastq.gz'
 
     @property
     def metadata_link(self):

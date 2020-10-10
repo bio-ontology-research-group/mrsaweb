@@ -42,7 +42,7 @@ class UploadListView(ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(col_uuid__isnull=False)
         user = self.request.user
-        if user.is_authenticated():
+        if user:
             queryset = queryset.filter(user=user)
         else:
             queryset = queryset.filter(user__isnull=True)

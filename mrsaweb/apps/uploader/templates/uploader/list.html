@@ -12,7 +12,8 @@
 	<tr>
 	  <td>{{ forloop.counter }}</td>
 	  <td>{{ object.name }}</td>
-	  <td><a href="{{ object.sequence_link }}">sequence</a></td>
+	  <td><a href="{{ object.sequence_read_1_link }}">sequence read 1</a></td>
+	  <td><a href="{{ object.sequence_read_2_link }}">sequence read 2</a></td>
 	  <td><a href="{{ object.metadata_link }}">metadata</a></td>
 	</tr>
 	{% endfor %}
