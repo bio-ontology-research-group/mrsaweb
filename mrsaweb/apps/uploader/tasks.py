@@ -12,8 +12,9 @@ import yaml
 import gzip
 
 from .qc_fasta import qc_fasta
-from .qc_metadata import qc_metadata
+from .qc_metadata import qc_metadata, to_rdf
 from django.conf import settings
+from mrsaweb.virtuoso import insert
 
 @task
 def upload_to_arvados(upload_pk, sequence_read_1, sequence_read_2, metadata_file):
@@ -22,6 +23,9 @@ def upload_to_arvados(upload_pk, sequence_read_1, sequence_read_2, metadata_file
     col = arvados.collection.Collection(api_client=api)
     
     metadata = yaml.load(open(metadata_file), Loader=yaml.FullLoader)
+    qc_fasta(sequence_read_1)
+    qc_fasta(sequence_read_2)
+
     upload_file(col, sequence_read_1, 'reads1.fastq.gz')
     upload_file(col, sequence_read_2, 'reads2.fastq.gz')
     upload_file(col, metadata_file, 'metadata.yaml')
@@ -43,8 +47,8 @@ def upload_to_arvados(upload_pk, sequence_read_1, sequence_read_2, metadata_file
                  (metadata['sample']['sample_id'], properties['upload_user'], properties['upload_ip']),
                  properties=properties, ensure_unique_name=True)
     response = col.api_response()
-    logger.info("some %d %s", upload_pk, response)
-    update_upload_success(upload_pk, response)
+    update_upload_success(upload_pk, response['uuid'])
+    update_rdfstore(response['uuid'], metadata_file)
 
     os.remove(sequence_read_1)
     os.remove(sequence_read_2)
@@ -56,9 +60,14 @@ def update_upload_failed(upload_pk, error_message):
         status=Upload.ERROR,
         error_message=error_message)
 
-def update_upload_success(upload_pk, response):
+def update_upload_success(upload_pk, uuid):
     Upload.objects.filter(pk=upload_pk).update(
-        status=Upload.UPLOADED, col_uuid=response['uuid'])
+        status=Upload.UPLOADED, col_uuid=uuid)
+
+def update_rdfstore(uuid, metadata_file):
+    res_uri = settings.ARVADOS_COL_BASE_URI + uuid
+    graph = to_rdf(res_uri, metadata_file)
+    insert(graph)
 
 def upload_file(col, filename_local, filename_remote):
     lf = open(filename_local, 'rb')

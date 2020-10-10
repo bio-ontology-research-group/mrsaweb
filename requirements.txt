@@ -17,3 +17,4 @@ rdflib>=5.0
 rdflib-jsonld>=0.5
 redis==3.5.1
 schema-salad>=7.0.20200811075006
+uwsgi==2.0.19.1

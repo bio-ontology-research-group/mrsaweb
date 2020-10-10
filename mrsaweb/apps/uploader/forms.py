@@ -4,7 +4,7 @@ from django.contrib.postgres.forms import SimpleArrayField
 from .utils import FORM_ITEMS
 from uploader.models import Upload
 from .qc_metadata import qc_metadata
-from .qc_fasta import qc_fasta
+from .qc_fasta import qc_fasta_lite
 from django.forms import ValidationError
 from .tasks import upload_to_arvados
 import tempfile
@@ -141,7 +141,7 @@ class UploadForm(forms.ModelForm):
     def clean_sequence_read_1(self):
         sequence_read_1 = self.cleaned_data['sequence_read_1']
         try:
-            qc_fasta(sequence_read_1.temporary_file_path())
+            qc_fasta_lite(sequence_read_1.temporary_file_path())
         except ValueError:
             raise ValidationError("Invalid file format")
         except OSError as e:
@@ -151,7 +151,7 @@ class UploadForm(forms.ModelForm):
     def clean_sequence_read_2(self):
         sequence_read_2 = self.cleaned_data['sequence_read_2']
         try:
-            qc_fasta(sequence_read_2.temporary_file_path())
+            qc_fasta_lite(sequence_read_2.temporary_file_path())
         except ValueError:
             raise ValidationError("Invalid file format")
         except OSError as e:

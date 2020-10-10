@@ -20,7 +20,7 @@ class Submissions:
         select distinct ?sub ?host_species ?sample_id  ?collection_date  \n \
             (group_concat(distinct ?author;separator="|") as ?authors)  \n \
             (group_concat(distinct ?seq_technology;separator="|") as ?seq_technologies)  \n \
-            ?bacteria_strain \n \
+            ?bacteria_species \n \
         from <https://mrsa.cbrc.kaust.edu.sa>  \n \
         \n \
         where { \n \

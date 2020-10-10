@@ -33,7 +33,7 @@ PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
 PREFIX evs: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> \n \
 PREFIX edam: <http://edamontology.org/> \n \
  \n \
-select distinct ?sub ?host_species ?sample_id ?collection_date ?submitter ?seq_technology (obo:NCBITaxon_2697049 as ?bacteria_species) \n \
+select distinct ?sub ?host_species ?sample_id ?collection_date ?submitter ?seq_technology (obo:NCBITaxon_1280 as ?bacteria_species) \n \
 from <https://mrsa.cbrc.kaust.edu.sa>  \n \
  \n \
 where { \n \
@@ -43,7 +43,7 @@ where { \n \
        MainSchema:submitter ?submitter ; \n \
        MainSchema:technology ?technology ; \n \
         MainSchema:bacteria ?bacteria .  \n \
-  ?bacteria edam:data_1875 obo:NCBITaxon_2697049 .  \n \
+  ?bacteria edam:data_1875 obo:NCBITaxon_1280 .  \n \
  \n \
   ?host efo:EFO_0000532 ?host_species . \n \
  \n \
@@ -61,7 +61,7 @@ PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
 PREFIX evs: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> \n \
 PREFIX edam: <http://edamontology.org/> \n \
  \n \
-select distinct (<http://arvados.org/keep:00a6af865453564f6a59b3d2c81cc7c1+123/sequence.fasta> as ?submission) \n \
+select distinct (<https://workbench.cborg.cbrc.kaust.edu.sa/collections/cborg-4zz18-ran61srik0wmx7e> as ?submission) \n \
         ?host_id ?host_species ?host_sex ?host_age ?host_age_unit ?host_health_status ?host_treatment (group_concat(distinct ?host_vaccination;separator=",") as ?host_vaccinations) ?ethnicity \n \
         ?sample_id (group_concat(distinct ?specimen_source;separator=",") as ?specimen_sources) ?sample_storage_conditions (group_concat(distinct ?source_database_accession;separator=",") as ?source_database_accessions)  \n \
         ?collector_name ?collection_date ?collecting_institution ?collection_location \n \
@@ -70,7 +70,7 @@ select distinct (<http://arvados.org/keep:00a6af865453564f6a59b3d2c81cc7c1+123/s
 from <https://mrsa.cbrc.kaust.edu.sa>  \n \
  \n \
 where { \n \
-  <http://arvados.org/keep:00a6af865453564f6a59b3d2c81cc7c1+123/sequence.fasta> MainSchema:host  ?host ; \n \
+  <https://workbench.cborg.cbrc.kaust.edu.sa/collections/cborg-4zz18-ran61srik0wmx7e> MainSchema:host  ?host ; \n \
        MainSchema:sample ?sample ; \n \
        MainSchema:submitter ?submitter ; \n \
        MainSchema:technology ?technology ; \n \
