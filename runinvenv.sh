@@ -6,6 +6,7 @@ if [ -z $VENV ]; then
 fi
 . ${VENV}/bin/activate
 shift 1
+cd /opt/mrsaweb/mrsaweb
 echo "Executing $@ in ${VENV}"
 exec "$@"
 deactivate
