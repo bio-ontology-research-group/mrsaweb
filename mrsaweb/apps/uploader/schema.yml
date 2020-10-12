@@ -12,7 +12,7 @@ $graph:
 - name: phenoSchema
   type: record
   fields:
-    susceptibility: susceptibilitySchema[]?
+    susceptibility: susceptibilitySchema[]
 
 - name: susceptibilitySchema
   type: record

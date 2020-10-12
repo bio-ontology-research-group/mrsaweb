@@ -41,7 +41,7 @@ specimen_source:
   sputum: http://purl.obolibrary.org/obo/NCIT_C13278
   bronchoalveolar lavage fluid: http://purl.obolibrary.org/obo/NCIT_C13195
 
-antimicrobial:
+antimicrobial_agent:
   Benzylpenicillin: http://purl.obolibrary.org/obo/CHEBI_18208
   Cefoxitin screen: http://purl.obolibrary.org/obo/CHEBI_209807
   Oxacillin: http://purl.obolibrary.org/obo/CHEBI_7809
@@ -62,4 +62,8 @@ antimicrobial:
   Mupirocin: http://purl.obolibrary.org/obo/CHEBI_7025
   Rifampicin: http://purl.obolibrary.org/obo/CHEBI_28077
   Trimethoprim/Sulfamethoxazole: http://purl.obolibrary.org/obo/CHEBI_45924
+
+interpretation:
+  resistant to: http://purl.obolibrary.org/obo/PATO_0001178
+  sensitive toward: http://purl.obolibrary.org/obo/PATO_0000516
   
