@@ -54,19 +54,20 @@ where { \n \
 } ORDER BY 1 LIMIT 10'
 
 
-GET_SUBMISSION_BY_URI_EXAMPLE = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
-PREFIX sio: <http://semanticscience.org/resource/> \n \
-PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
-PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
-PREFIX evs: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> \n \
-PREFIX edam: <http://edamontology.org/> \n \
+GET_SUBMISSION_BY_URI_EXAMPLE = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n\
+PREFIX phenoSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#phenoSchema/> \n\
+PREFIX sio: <http://semanticscience.org/resource/> \n\
+PREFIX efo: <http://www.ebi.ac.uk/efo/> \n\
+PREFIX obo: <http://purl.obolibrary.org/obo/> \n\
+PREFIX evs: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> \n\
+PREFIX edam: <http://edamontology.org/> \n\
  \n \
 select distinct (<https://workbench.cborg.cbrc.kaust.edu.sa/collections/cborg-4zz18-ran61srik0wmx7e> as ?submission) \n \
         ?host_id ?host_species ?host_sex ?host_age ?host_age_unit ?host_health_status ?host_treatment (group_concat(distinct ?host_vaccination;separator=",") as ?host_vaccinations) ?ethnicity \n \
         ?sample_id (group_concat(distinct ?specimen_source;separator=",") as ?specimen_sources) ?sample_storage_conditions (group_concat(distinct ?source_database_accession;separator=",") as ?source_database_accessions)  \n \
         ?collector_name ?collection_date ?collecting_institution ?collection_location \n \
        (group_concat(distinct ?seq_technology;separator=",") as ?seq_technologies) ?sequence_assembly_method (group_concat(distinct ?sequencing_coverage;separator=",") as ?sequencing_coverages) \n \
-       ?bacteria_species ?bacteria_strain \n \
+       ?bacteria_species ?bacteria_strain ?antimicrobial_agent ?mic ?interpretation \n \
 from <https://mrsa.cbrc.kaust.edu.sa>  \n \
  \n \
 where { \n \
@@ -101,4 +102,9 @@ where { \n \
   ?technology obo:OBI_0600047 ?seq_technology . \n \
   OPTIONAL { ?technology efo:EFO_0002699 ?sequence_assembly_method .} \n \
   OPTIONAL { ?technology obo:FLU_0000848 ?sequencing_coverage .} \n \
+\n \
+  ?phenotypes phenoSchema:susceptibility ?susceptibility . \n \
+  ?susceptibility obo:CHEBI_33281 ?antimicrobial_agent . \n \
+  OPTIONAL { ?susceptibility obo:OBI_0001514 ?mic .} \n \
+  OPTIONAL { ?susceptibility obo:PATO_0001995 ?interpretation .} \n \
 }'
