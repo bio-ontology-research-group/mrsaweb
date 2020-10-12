@@ -48,6 +48,7 @@ class Submissions:
 
     def get_by_iri(self, iri):
         query = 'PREFIX MainSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#MainSchema/> \n \
+        PREFIX phenoSchema: <http://cbrc.kaust.edu.sa/mrsa-schema#phenoSchema/> \n \
         PREFIX sio: <http://semanticscience.org/resource/> \n \
         PREFIX efo: <http://www.ebi.ac.uk/efo/> \n \
         PREFIX obo: <http://purl.obolibrary.org/obo/> \n \
@@ -59,7 +60,7 @@ class Submissions:
         ?sample_id (group_concat(distinct ?specimen_source;separator="|") as ?specimen_sources) ?sample_storage_conditions (group_concat(distinct ?source_database_accession;separator="|") as ?source_database_accessions)  \n \
         ?collector_name ?collection_date ?collecting_institution ?collection_location  \n \
         (group_concat(distinct ?seq_technology;separator="|") as ?seq_technologies) ?sequence_assembly_method (group_concat(distinct ?sequencing_coverage;separator="|") as ?sequencing_coverages)  \n \
-        ?bacteria_species  ?bacteria_strain \n \
+        ?bacteria_species  ?bacteria_strain ?antimicrobial_agent ?mic ?interpretation \n \
         from <https://mrsa.cbrc.kaust.edu.sa>  \n \
         \n \
         where { \n \
@@ -68,7 +69,8 @@ class Submissions:
             MainSchema:sample ?sample ; \n \
             MainSchema:submitter ?submitter ; \n \
             MainSchema:technology ?technology ; \n \
-            MainSchema:bacteria ?bacteria . \n \
+            MainSchema:bacteria ?bacteria ; \n \
+            MainSchema:phenotypes ?phenotypes . \n \
         \n \
         ?host efo:EFO_0000532 ?host_species . \n \
         OPTIONAL { ?host sio:SIO_000115 ?host_id .} \n \
@@ -95,11 +97,18 @@ class Submissions:
         ?technology obo:OBI_0600047 ?seq_technology . \n \
         OPTIONAL { ?technology efo:EFO_0002699 ?sequence_assembly_method .} \n \
         OPTIONAL { ?technology obo:FLU_0000848 ?sequencing_coverage .} \n \
+        \n \
+        ?phenotypes phenoSchema:susceptibility ?susceptibility . \n \
+        ?susceptibility obo:CHEBI_33281 ?antimicrobial_agent . \n \
+        OPTIONAL { ?susceptibility obo:OBI_0001514 ?mic .} \n \
+        OPTIONAL { ?susceptibility obo:PATO_0001995 ?interpretation .} \n \
         }'
         logger.debug("Executing query for submission: %s", iri)
         submissions = virt.execute_sparql(query, self.MIME_TYPE_JSON).json()
         # appending submitter fields
+        
         if len(submissions['results']['bindings']) > 0:
+            submissions = self.transform_phenotypes(submissions)
             submitter = self.get_submitter(iri)
             if not submitter:
                 submissions = self.pipe_sep_to_string_list(submissions)
@@ -148,6 +157,8 @@ class Submissions:
     def transform_references(self, submissions):
         for obj in submissions['results']['bindings']:
             for key in obj:
+                if 'value' not in obj[key]:
+                    continue
                 obj[key]['prefixed_value'] = to_prefixed_uri(obj[key]['value'])
         return submissions
 
@@ -156,12 +167,18 @@ class Submissions:
         group_uri_keys = ['seq_technologies', 'specimen_sources']
         for obj in submissions:
             for key in obj:
+                if 'type' not in obj[key]:
+                    continue
+
                 if obj[key]['type'] == 'uri' or key in group_uri_keys:
                     iri_dict = iri_dict + get_ontology(obj[key]['value'])
 
         resolved_objs = find_by_iri(iri_dict)
         for obj in submissions:
             for key in obj:
+                if 'type' not in obj[key]:
+                    continue
+
                 if obj[key]['type'] == 'uri' and isinstance(obj[key]['value'], str) and obj[key]['value'] in resolved_objs:
                    obj[key]['display'] = resolved_objs[obj[key]['value']]['label']
                 
@@ -200,3 +217,27 @@ class Submissions:
             if 'sequencing_coverages' in obj:
                 obj['sequencing_coverages']['value'] = obj['sequencing_coverages']['value'].split('|')
         return submissions
+
+    def transform_phenotypes(self, submission):
+        if len(submission['results']['bindings']) == 1:
+            sub = submission['results']['bindings'][0]
+            sub['phenotypes'] =  [{
+                    'antimicrobial_agent' : sub['antimicrobial_agent'],
+                    'mic' : sub['mic'],
+                    'interpretation' : sub['interpretation'],
+                }]
+        else:
+            rootsub = submission['results']['bindings'][0]
+            rootsub['phenotypes'] = []
+            for sub in submission['results']['bindings']:  
+                sub['antimicrobial_agent']['prefixed_value'] = to_prefixed_uri(sub['antimicrobial_agent']['value'])
+                sub['mic']['prefixed_value'] = to_prefixed_uri(sub['mic']['value'])
+                sub['interpretation']['prefixed_value'] = to_prefixed_uri(sub['interpretation']['value'])
+
+                rootsub['phenotypes'].append({
+                    'antimicrobial_agent' : sub['antimicrobial_agent'],
+                    'mic' : sub['mic'],
+                    'interpretation' : sub['interpretation'],
+                })
+        submission['results']['bindings'] = [rootsub]   
+        return submission

@@ -7,7 +7,7 @@
         <h4 class="text-center my-5">Submission </h4>
         <div class="row pt-3 mb-4">
             <div class="col-3">ID</div>
-            <div class="col-3">{{submission.sub.value}}</div>
+            <div class="col-9">{{submission.sub.value}}</div>
         </div>
         <div class="row border-bottom">
             <strong>Bacteria</strong>
@@ -241,5 +241,27 @@
                 {% endfor %}</ul></div>
         </div>
         {% endif %}
+        <div class="row  mt-2 border-bottom">
+            <strong>Phenotypes</strong>
+        </div>
+        {% for phenotype in  submission.phenotypes %}
+        <div class="row pt-3">
+            <div class="col-3">Antimicrobial Agent</div>
+            <div class="col-6">{{phenotype.antimicrobial_agent.prefixed_value}}</div>
+        </div>
+        {% if phenotype.mic.value %}
+        <div class="row pt-3">
+            <div class="col-3">Minimum inhibitory concentration</div>
+            <div class="col-6">{{phenotype.mic.value}}</div>
+        </div>
+        {% endif %}
+        {% if phenotype.interpretation.value %}
+        <div class="row pt-3">
+        <div class="col-3">Interpretation</div>
+            <div class="col-6">{{phenotype.interpretation.prefixed_value}}</div>
+        </div>
+        {% endif %}
+        <hr />
+        {% endfor %}
     </div>
 {% endblock content %}
