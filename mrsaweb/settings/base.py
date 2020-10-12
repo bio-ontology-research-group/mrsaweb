@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r%!^%#0k)vclmxz@7$1-@(vi9jt+lpd0yx^n9v8+xiu1obg9j4'
+SECRET_KEY = config['django']['secret.key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -195,8 +195,8 @@ FILE_UPLOAD_HANDLERS = [
 
 FILE_UPLOAD_PERMISSIONS = 0o644
 
-RECAPTCHA_PRIVATE_KEY = '6LcqGtYZAAAAAN198KF9fB_bbXCMrNRwNnIpgWRl'
-RECAPTCHA_PUBLIC_KEY = '6LcqGtYZAAAAACZjLQfPWUqU6JsjjkcEnDxXY30E'
+RECAPTCHA_PRIVATE_KEY = config['recaptcha']['private.key']
+RECAPTCHA_PUBLIC_KEY = config['recaptcha']['public.key']
 ACCOUNT_FORMS = {
     'login': 'accounts.forms.CaptchaLoginForm',
     'signup': 'accounts.forms.CaptchaSignupForm'}
