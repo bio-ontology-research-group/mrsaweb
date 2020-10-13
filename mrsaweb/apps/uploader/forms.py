@@ -159,7 +159,7 @@ class UploadForm(forms.ModelForm):
         return sequence_read_2
 
     def clean(self):
-        if 'metadata_file' not in self.cleaned_data:
+        if 'metadata_file' not in self.cleaned_data or ('metadata_file' in self.cleaned_data and not self.cleaned_data['metadata_file']):
             metadata = {}
             for key, val in self.cleaned_data.items():
                 if not key.startswith('metadata') or not val:
@@ -173,6 +173,14 @@ class UploadForm(forms.ModelForm):
                     if keys[1] not in metadata:
                         metadata[keys[1]] = {}
                     metadata[keys[1]][keys[2]] = val
+                #bind phenotypes properties
+                elif len(keys) == 4:
+                    if keys[1] not in metadata:
+                        metadata[keys[1]] = {}
+                    if keys[2] not in metadata[keys[1]]:
+                        metadata[keys[1]][keys[2]] = [{}]
+                    metadata[keys[1]][keys[2]][0][keys[3]] = val
+            
             metadata_str = json.dumps(metadata)
             f = tempfile.NamedTemporaryFile('wt', delete=False)
             f.write(metadata_str)
