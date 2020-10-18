@@ -5,6 +5,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a class="nav-link" href="{% url "uploader-submission_list" %}">Submissions</a></li>
       <li class="nav-item"><a class="nav-link" href="{% url "sparql-isparql" %}">Sparql</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url "documentation" %}">Documentation</a></li>
     </ul>
     <ul class="navbar-nav ml-auto">
      {% if not user.is_authenticated %}

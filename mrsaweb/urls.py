@@ -29,5 +29,6 @@ urlpatterns = [
     path('api/', include('mrsaweb.api_urls')),
     path('manage/', include('mrsaweb.manage_urls')),
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    path('doc/', TemplateView.as_view(template_name='doc.html'), name='documentation'),
     path('healthcheck', TemplateView.as_view(template_name='health.html')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

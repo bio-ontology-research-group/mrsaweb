@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<div class="docs-wrapper">
+<div id="docs-sidebar" class="docs-sidebar">
+    <div class="top-search-box d-lg-none p-3">
+        <form class="search-form">
+            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+    <nav id="docs-nav" class="docs-nav navbar">
+        <ul class="section-items list-unstyled nav flex-column pb-3">
+            <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder mr-2"><i class="fas fa-map-signs"></i></span>MRSA Sequence Uploader</a></li>
+            <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">BORG/CBRC Arvados Cloud Platform</a></li>
+            <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Using Web portal for uploading</a></li>
+            <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3">Metadata Format</a></li>
+            <li class="nav-item"><a class="nav-link scrollto" href="#item-1-4">Sequence Read File Format</a></li>
+            <li class="nav-item"><a class="nav-link scrollto" href="#item-1-5">SPARQL</a></li>
+            <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-2"><span class="theme-icon-holder mr-2"><i class="fas fa-map-signs"></i></span>Commandline Tool</a></li>
+            <li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">Installation</a></li>
+            <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">Usage</a></li>
+        </ul>
+    </nav><!--//docs-nav-->
+</div><!--//docs-sidebar-->
+    <div class="docs-content">
+        <div class="container">
+            <article class="docs-article" id="section-1">
+                <header class="docs-header">
+                    <h1 class="docs-heading">MRSA <span class="docs-time">Last updated: </span></h1>
+                    <section class="docs-intro">
+                        <p>MRSA Sequence Uploader is plateform that allows researchers upload sequence data of MRSA bacteria to a public 
+                        repository. There are two ways to upload the sequence data one is this website and the other that on the command line. 
+                        You can use it to upload the genomes of MRSA samples to make them publicly and freely available to other researchers.</p>
+                    </section><!--//docs-intro-->
+                    <section class="docs-section" id="item-1-1">
+						<h2 class="section-heading">BORG/CBRC Arvados Cloud Platform</h2>
+						<p>The uploader uses the Arvados Cloud platform for managing, processing, and sharing genomic and other large scientific and biomedical data. 
+                        The Arvados <a class="theme-link" href="https://workbench.cborg.cbrc.kaust.edu.sa/" target="_blank">instance</a> is deployed on BORG/CBRC servers for testing and development. </p>
+                        <p>In order to use BORG/CBRC Arvados platform for managing your data, user can create his/her account and sign in to arvados platform.</p>
+                        <h5 class="pt-2">Getting an API token</h5>
+                        <p>The Arvados API token is a secret key that enables user to authenticate themselves in order to use the command line tools 
+                        that are using arvados platform to manage data .</p>    
+                        <p><strong>MRSA Sequence uploader</strong> also requires the arvados API token to be set as environment variable before running it.</p>
+                        <h5 class="pt-2">Setting API token as environment variables</h5>
+                        <p>The Current token page, accessed using the dropdown menu icon in the upper right corner of the top navigation menu on <a class="theme-link" href="https://workbench.cborg.cbrc.kaust.edu.sa/" target="_blank">arvados web inteface</a>, 
+                        includes a command you may copy and paste directly into the shell. It will look something as the following.</p>
+                        <div class="docs-code-block">
+							<code class="shell">export ARVADOS_API_TOKEN=2jv9346o396exampledonotuseexampledonotuseexes7j1ld</code><br />
+                            <code class="shell">export ARVADOS_API_HOST=cborg.cbrc.kaust.edu.sa</code>
+                        </div>
+					</section><!--//section-->
+				    <section class="docs-section" id="item-1-2">
+						<h2 class="section-heading">Using MRSA Web portal for uploading</h2>
+						<p>For uploading the sequence data, You can follow the following steps: </p>
+						<ol>
+						    <li>You will need to sign in if you have already registered. You can sign in using your ORCID account to by clicking on <strong class="mr-1">Orcid.org</strong> link on sign in page.</li>
+						    <li>Once you are logged in, click on the <strong class="mr-1">Upload</strong> menu from top menu bar.</li>
+						    <li>Choose the two sequence read files to be uploaded and metadata file (or fill the input fields in the form) from the file system and submit the form. It will take few minutes to upload and process sequence file.</li>
+						    <li> Once the data is processed, click on the <strong class="mr-1">Submissions</strong> menu from the menu bar to see your submission.</li>
+						    <li>Click on the view link to see the details.</li>
+						    <li>The ID of the submission is the URL to the sequence data directory in the Arvados. Click on the URL to see the submitted data.</li>
+                            <li>You can download and view uploaded files on arvados web interface.</li>
+						</ol>
+					</section><!--//section-->
+
+					
+					<section class="docs-section" id="item-1-3">
+						<h2 class="section-heading">Metadata File Format</h2>
+						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-1-4">
+						<h2 class="section-heading">Sequence Read File Format</h2>
+						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-1-5">
+						<h2 class="section-heading">SPARQL</h2>
+						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					</section><!--//section-->
+			    </article>
+			    <article class="docs-article" id="section-2">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Commandline tool</h1>
+					    <section class="docs-intro">
+						    <p>To get started, you need to install the command line uploader first and then run the main.py script in uploader directory.</p>
+						</section><!--//docs-intro-->
+				    </header>
+				     <section class="docs-section" id="item-2-1">
+                        <h2 class="section-heading">Installation</h2>
+						<h5>Download</h5>
+						<p>You can download the uploader by cloning the github repository using following command:</p>
+                        <div class="docs-code-block">
+							<code class="shell">git clone https://github.com/bio-ontology-research-group/mrsa-sequences.git </code>
+                        <div>
+						<h5 class="pt-4">Prepare your system</h5>
+						<p>You need to make sure you have Python, and the ability to install modules such as `pycurl` and `pyopenssl`. On Ubuntu 18.04, you can run:</p>
+                        <div class="docs-code-block">
+							<code class="shell">sudo apt update</code><br />
+                            <code class="shell">sudo apt install -y virtualenv git libcurl4-openssl-dev build-essential python3-dev libssl-dev</code>
+                        <div>
+						<h5 class="pt-5">Create and enter your virtualenv.</h5>
+						<p>Go to downloaded uploader directory and make and enter a virtualenv:</p>
+                        <div class="docs-code-block">
+							<code class="shell">virtualenv --python python3 venv</code>
+                            <code class="shell">. venv/bin/activate</code>
+                        <div>
+                        <p  class="pt-2">Note that you will need to repeat the <code class="shell">`. venv/bin/activate`</code> step from this directory to enter your virtualenv whenever you want to use the installed tool.</p>
+                        <h5 class="pt-5">Install the dependencies</h5>
+						<p>Once the virtualenv is setup, install the dependencies:</p>
+                        <div class="docs-code-block">
+							<code class="shell">pip install -r requirements.txt</code>
+                        <div>
+                        <h5 class="pt-5">Test the tool</h5>
+						<p>Try running:</p>
+                        <div class="docs-code-block">
+							<code class="shell">python uploader/main.py --help</code>
+                        <div>
+                        <h5 class="pt-5">Set Arvados API Token</h5>
+						<p>Before uploading the sequence files, you need to set arvados api token value to environment variable ARVADOS_API_TOKEN. It will look something as the following:</p>
+                        <div class="docs-code-block">
+							<code class="shell">export ARVADOS_API_TOKEN=2jv9346o396exampledonotuseexampledonotuseexes7j1ld</code>
+                        <div>
+                        <p class="pt-2 pb-2">You can find the arvados token at <a class="theme-link" href="https://workbench.cborg.cbrc.kaust.edu.sa/current_token" target="_blank">current token link</a>
+                        in your user profile menu on <a class="theme-link" href="https://workbench.cborg.cbrc.kaust.edu.sa/" target="_blank">arvados web portal.</a></p>
+					</section><!--//section-->
+                    <section class="docs-section" id="item-2-2">
+                        <h2 class="section-heading">Usage</h2>
+                        <p>Run the uploader with a FASTA or FASTQ reads gzipped files and accompanying metadata file in YAML:</p>
+                        <div class="docs-code-block">
+							<code class="shell">python uploader/main.py reads1.fastq.gz reads2.fastq.gz metadata.yaml</code>
+                        <div>
+                        <p class="pt-2 pb-2">You can find the example files on mrsa <a class="theme-link" href="https://mrsa.cborg.cbrc.kaust.edu.sa/upload/" target="_blank">web uploader</a>. Here are the links to example files:</p>
+                        <ul>
+                            <li>Example <a class="theme-link" href="https://mrsa.cborg.cbrc.kaust.edu.sa/static/reads1.fastq.gz" target="_blank">fastq read file 1</a></li>
+                            <li>Example <a class="theme-link" href="https://mrsa.cborg.cbrc.kaust.edu.sa/static/reads2.fastq.gz" target="_blank">fastq read file 2</a></li>
+                            <li>Example <a class="theme-link" href="https://mrsa.cborg.cbrc.kaust.edu.sa/static/metadata.yaml" target="_blank">Metadata file</a></li>
+                        </ul>
+                        <p class="pt-2 pb-2">Once the sequence is uploaded, you can see the status of the job in state.json file.</p>
+                    </section>
+			    </article><!--//docs-article-->
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+					    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+				        <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+				        <ul class="social-list list-unstyled pt-4 mb-0">
+						    <li class="list-inline-item"><a href="#"><i class="fab fa-github fa-fw"></i></a></li> 
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-slack fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-product-hunt fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram fa-fw"></i></a></li>
+				        </ul><!--//social-list-->
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+
+<script src="{% static "yarn/jquery/dist/jquery.min.js" %}"></script>
+<script src="{% static "yarn/popper.js/dist/umd/popper.min.js" %}"></script>
+<script src="{% static "yarn/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+<script src="{% static "yarn/jquery.scrollto/jquery.scrollTo.min.js" %}"></script>
+<script src="{% static "yarn/ekko-lightbox/dist/ekko-lightbox.min.js" %}"></script> 
+<script src="{% static "js/mrsaweb.js" %}"></script> 
+{% endblock %}
