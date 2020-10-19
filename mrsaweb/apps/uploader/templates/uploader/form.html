@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+<div class="container">
 <form action="." method="post"
       enctype="multipart/form-data">
   {% csrf_token %}
@@ -179,6 +180,7 @@
     </div>
   </div>
 </form>
+</div>
 {% endblock %}
 
 {% block scripts %}
