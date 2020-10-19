@@ -70,7 +70,7 @@
 					
 					<section class="docs-section" id="item-1-3">
 						<h2 class="section-heading">Metadata File Format</h2>
-						<p>The structure of the metadata file is descirbed in <a class="theme-link" href="https://yaml.org/" target="_blank">YAML</a> 
+						<p>The structure of the metadata file is described in <a class="theme-link" href="https://yaml.org/" target="_blank">YAML</a> 
                         language. The schema file is available <a class="theme-link" href="https://github.com/bio-ontology-research-group/mrsa-sequences/blob/master/uploader/schema.yml" target="_blank">here</a>.</p>
                         <h5>Metadata file fields description:</h5>
 						<div class="table-responsive my-4">
@@ -290,9 +290,11 @@
 					<section class="docs-section" id="item-1-5">
 						<h2 class="section-heading">SPARQL</h2>
 						<p>To be able to make metadata available through SPARQL endpoint for querying, the uploader at time of upload converts the metadata into RDF.
-                         Single RDF resource is compiled that can be linked against external resources such as NCBITaxon, PATO, CHEBI and Wikidata. The generated RDF
+                         Single RDF resource is compiled that is linked against external resources such as NCBITaxon, PATO, CHEBI and Wikidata. The generated RDF
                         file is hosted in any triple store and can be queried using SPARQL.</p>
-                        <p>The uploader web interface provides a interactive SPARQL query editor and the example queries for querying submitted data such as query for listing 
+                        <p>RDF resource structure is described in <a class="theme-link" href="https://www.w3.org/TR/shacl/" target="_blank">SHACL</a> 
+                        language and the schema file is available <a class="theme-link" href="https://github.com/bio-ontology-research-group/mrsa-sequences/blob/master/uploader/shex.rdf" target="_blank">here</a>.</p>
+                        <p>The uploader web interface provides an interactive SPARQL query editor and the example queries for querying submitted data such as query for listing 
                         all the submissions, listing submission for specific bacteria species and details of a specific submission.</p>
 					</section><!--//section-->
 			    </article>
