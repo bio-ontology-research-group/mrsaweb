@@ -1,7 +1,7 @@
 # mrsaweb
 
 # MRSA Sequence Uploader
-MRSA Sequence Uploader is plateform that allows researchers upload sequence data of MRSA bacteria to a public repository. There are two ways to upload the sequence data one is this website and the other that on the command line. You can use it to upload the genomes of MRSA samples to make them publicly and freely available to other researchers.
+MRSA Sequence Uploader is a platform that allows researchers to upload sequence data of MRSA bacteria to a public repository. There are two ways to upload the sequence data one is this website and the other on the command line. You can use it to upload the genomes of MRSA samples to make them publicly and freely available to other researchers.
 
 The uploader uses the Arvados Cloud platform for managing, processing, and sharing genomic and other large scientific and biomedical data. The Arvados instance was deployed on KAUST servers for testing and development.
 
