@@ -1,6 +1,7 @@
 arvados-python-client>=2.0.4
 celery==4.4.2
 bh20-seq-uploader>=1.0
+bioblend>=0.14.0
 django>=3.1.2
 django-allauth>=0.42.0
 django-recaptcha2==1.4.1
