@@ -1,4 +1,5 @@
 import urllib
+import logging
 
 from django.shortcuts import render
 from django.urls import reverse
@@ -6,12 +7,21 @@ from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
 
 from django.views.generic import CreateView, DetailView, ListView
+from django.conf import settings
+
 from .forms import UploadForm
 from mrsaweb.mixins import FormRequestMixin
+from mrsaweb.virtuoso import insert
 from uploader.models import Upload
 from .utils import api
 from .utils import fix_iri_path_param
 from .submissions import Submissions
+from rdflib import Graph
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+logger = logging.getLogger(__name__)
 
 class UploadCreateView(FormRequestMixin, CreateView):
 
@@ -85,3 +95,18 @@ def submission_details_view(request, iri):
 
     return render(request, 'uploader/view-submission.html', context)
 
+
+class SyncMetadataRDF(APIView):
+    """
+    Sync's metadata with triple store 
+    """
+
+    def post(self, request, col_id, format=None):
+        try:
+            res_uri = settings.ARVADOS_COL_BASE_URI + col_id + "/metadata.rdf"
+            g = Graph()
+            g.parse(res_uri)
+            insert(g)
+            return Response()
+        except Exception as e:
+            logger.exception("message")
