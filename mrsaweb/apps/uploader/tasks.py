@@ -1,5 +1,4 @@
-from celery import task
-from uploader.models import Upload
+
 import subprocess
 import os
 import json
@@ -11,8 +10,13 @@ import logging
 import yaml
 import gzip
 
+from celery import task
+
+from uploader.models import Upload
+
 from .qc_fasta import qc_fasta
 from .qc_metadata import qc_metadata, to_rdf
+from .galaxy import create_folder, upload
 from django.conf import settings
 from mrsaweb.virtuoso import insert
 
@@ -49,7 +53,9 @@ def upload_to_arvados(upload_pk, sequence_read_1, sequence_read_2, metadata_file
                     properties=properties, ensure_unique_name=True)
         response = col.api_response()
         update_upload_success(upload_pk, response['uuid'])
-        update_rdfstore(response['uuid'], metadata_file)
+        graph = update_rdfstore(response['uuid'], metadata_file)
+        upload_rdf_file(col, graph)
+        # upload_collection2galaxy()
     except Exception as e:
         logger.exception("message")
         update_upload_failed(update_upload_failed, e)
@@ -72,6 +78,7 @@ def update_rdfstore(uuid, metadata_file):
     res_uri = settings.ARVADOS_COL_BASE_URI + uuid
     graph = to_rdf(res_uri, metadata_file)
     insert(graph)
+    return graph
 
 def upload_file(col, filename_local, filename_remote):
     lf = open(filename_local, 'rb')
@@ -81,3 +88,49 @@ def upload_file(col, filename_local, filename_remote):
             f.write(r)
             r = lf.read(65536)
     lf.close()
+
+def upload_rdf_file(col, graph):
+    with col.open('metadata.rdf', "wb") as f:
+        f.write(graph.serialize(format="pretty-xml"))
+
+    col.save()
+
+def upload_collection2galaxy():
+    folder_id = create_folder(settings.PANGENOME_RESULT_UUID)
+    collection_url = settings.ARVADOS_COL_BASE_URI + "/" + settings.PANGENOME_RESULT_UUID
+
+    core_full_aln_url = collection_url + "/" + 'core.full.aln'
+    upload(core_full_aln_url, folder_id)
+    
+    core_full_aln_iqtree_url = collection_url + "/" + 'core.full.aln.iqtree'
+    upload(core_full_aln_iqtree_url, folder_id)
+    
+    core_full_aln_treefile = collection_url + "/" + 'core.full.aln.treefile'
+    upload(core_full_aln_treefile, folder_id)
+    
+    core_full_tab_url = collection_url + "/" + 'core.full.tab'
+    upload(core_full_tab_url, folder_id)
+    
+    core_url = collection_url + "/" + 'core.txt'
+    upload(core_url, folder_id)
+    
+    cwl_output_url = collection_url + "/" + 'cwl.output.json'
+    upload(cwl_output_url, folder_id)
+    
+    gene_presence_absence_url = collection_url + "/" + 'gene_presence_absence.svg'
+    upload(gene_presence_absence_url, folder_id)
+
+    output_url = collection_url + "/" + 'output.json'
+    upload(output_url, folder_id)
+
+    pan_genome_reference_url = collection_url + "/" + 'pan_genome_reference.fa'
+    upload(pan_genome_reference_url, folder_id)
+
+    seqwish_gfa_url = collection_url + "/" + 'seqwish.gfa'
+    upload(seqwish_gfa_url, folder_id)
+
+    seqwish_url = collection_url + "/" + 'seqwish.png'
+    upload(seqwish_url, folder_id)
+
+    summary_statistics_url = collection_url + "/" + 'summary_statistics.txt'
+    upload(summary_statistics_url, folder_id)
