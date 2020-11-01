@@ -240,5 +240,10 @@ RDF_GRAPH_URI=config['virtuoso']['graph']
 ARVADOS_API_HOST=config['arvados']['api.host']
 ARVADOS_API_TOKEN=config['arvados']['api.token']
 UPLOAD_PROJECT=config['arvados']['api.upload.project']
+PANGENOME_RESULT_UUID=config['arvados']['api.pangenome.result.uuid']
+
 ARVADOS_COL_BASE_URI='https://workbench.cborg.cbrc.kaust.edu.sa/collections/'
 
+GALAXY_API_BASEURL=config['galaxy']['api.base_url']
+GALAXY_API_KEY=config['galaxy']['api.key']
+LIBRARY_ID= config['galaxy']['api.library.id']
