@@ -17,7 +17,6 @@ VIRTUOSO_USER = getattr(settings, 'VIRTUOSO_USER')
 VIRTUOSO_PWD = getattr(settings, 'VIRTUOSO_PWD')
 RDF_GRAPH_URI = getattr(settings, 'RDF_GRAPH_URI')
 SPARQL_ENDPOINT_URL = HTTP_PROT + VIRTUOSO_HOST + ":" + str(VIRTUOSO_SPARQL_PORT) + "/sparql"
-SPARQL_DAV_URL = HTTP_PROT + VIRTUOSO_HOST + ":" + str(VIRTUOSO_SPARQL_PORT) + "/DAV/home/"
 
 def execute_sparql(query, format):
     query_url="{endpoint}?query={query}&format={format}&timeout=0&debug=on&run={run}" \

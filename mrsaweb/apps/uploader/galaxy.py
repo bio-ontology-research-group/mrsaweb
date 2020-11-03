@@ -33,3 +33,9 @@ def create_folder(name):
     result = gi.libraries.create_folder(settings.LIBRARY_ID, name)
     logger.info('folder created: %s', result[0]['id'])
     return result[0]['id']
+
+
+def clean_folder():
+    response = gi.folders.show_folder(settings.GALAXY_PANGENOME_RESULT_DIR, contents=True)
+    for item in response['folder_contents']:
+        gi.libraries.delete_library_dataset(settings.LIBRARY_ID, item['id'], purged=True)

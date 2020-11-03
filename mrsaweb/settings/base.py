@@ -256,3 +256,4 @@ ARVADOS_COL_BASE_URI='https://workbench.cborg.cbrc.kaust.edu.sa/collections/'
 GALAXY_API_BASEURL=config['galaxy']['api.base_url']
 GALAXY_API_KEY=config['galaxy']['api.key']
 LIBRARY_ID= config['galaxy']['api.library.id']
+GALAXY_PANGENOME_RESULT_DIR=config['galaxy']['pangenome_result_dir']

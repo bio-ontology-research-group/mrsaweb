@@ -6,7 +6,7 @@ from uploader.models import Upload
 from .qc_metadata import qc_metadata
 from .qc_fasta import qc_fasta_lite
 from django.forms import ValidationError
-from .tasks import upload_to_arvados
+from uploader.tasks import upload_to_arvados
 import tempfile
 import json
 import datetime
