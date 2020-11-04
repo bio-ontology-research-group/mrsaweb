@@ -97,7 +97,7 @@ def upload_rdf_file(col, graph):
     col.save()
 
 # Every 12th hour
-# @periodic_task(run_every=crontab(minute=0, hour='11,23'))
+@periodic_task(run_every=crontab(minute=0, hour='11,23'))
 def run_pangenome_analysis():
     logger = run_pangenome_analysis.get_logger()
     cmd = 'mrsa-seq-analyzer'
