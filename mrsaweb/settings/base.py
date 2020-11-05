@@ -238,7 +238,7 @@ CELERY_WORKER_CONCURRENCY = 24
 CELERY_BROKER_POOL_LIMIT = 100
 CELERY_BROKER_CONNECTION_TIMEOUT = 10
 
-ABEROWL_API_URL='http://aber-owl.net/api'
+ABEROWL_API_URL='http://10.254.147.137/api'
 
 VIRTUOSO_HOST=config['virtuoso']['host']
 VIRTUOSO_SPARQL_PORT=config['virtuoso']['sparql.port']
