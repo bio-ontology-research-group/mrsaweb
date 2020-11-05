@@ -64,14 +64,24 @@ class UploadListView(ListView):
 
 def submission_list_view(request):
     service = Submissions()
-    submissions = service.find()
-    paginator = Paginator(submissions, 10, orphans=5)
 
-    is_paginated = True if paginator.num_pages > 1 else False
     page = request.GET.get('page') or 1
+    page = int(page)
 
     try:
-        current_page = paginator.page(page)
+        pageSize = 20
+        offset = 1
+        if page > 1:
+            offset = pageSize * (page - 1)
+
+        submissions = service.find(limit=pageSize, offset=offset)
+        current_page = submissions[:-1]
+        num_pages = int((int(submissions[-1]['total']['value']) / pageSize)+ 1)
+        has_next = True if num_pages > page else False
+        has_previous = True if 1 < page else False
+        next_page_number = page + 1
+        previous_page_number = page - 1
+        page_range = range(1,num_pages + 1)
         current_page = service.resolve_references(current_page)
 
     except InvalidPage as e:
@@ -79,10 +89,14 @@ def submission_list_view(request):
 
     context = {
         'current_page': current_page,
-        'is_paginated': is_paginated,
-        'paginator': paginator
+        'number': page,
+        'num_pages': num_pages,
+        'has_next': has_next,
+        'has_previous': has_previous,
+        'previous_page_number': previous_page_number,
+        'next_page_number': next_page_number,
+        'page_range': page_range
     }
-
     return render(request, 'uploader/list-submission.html', context)
 
 def submission_details_view(request, iri):
